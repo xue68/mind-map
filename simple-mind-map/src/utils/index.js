@@ -1,7 +1,8 @@
 import { v4 as uuidv4 } from 'uuid'
 import {
   nodeDataNoStylePropList,
-  selfCloseTagList
+  selfCloseTagList,
+  richTextSupportStyleList
 } from '../constants/constant'
 import MersenneTwister from './mersenneTwister'
 import { ForeignObject } from '@svgdotjs/svg.js'
@@ -173,6 +174,12 @@ export const copyRenderTree = (tree, root, removeActiveState = false) => {
       tree.children[index] = copyRenderTree({}, item, removeActiveState)
     })
   }
+  // data、children外的其他字段
+  Object.keys(root).forEach(key => {
+    if (!['data', 'children'].includes(key) && !/^_/.test(key)) {
+      tree[key] = root[key]
+    }
+  })
   return tree
 }
 
@@ -183,7 +190,8 @@ export const copyNodeTree = (
   removeActiveState = false,
   removeId = true
 ) => {
-  tree.data = simpleDeepClone(root.nodeData ? root.nodeData.data : root.data)
+  const rootData = root.nodeData ? root.nodeData : root
+  tree.data = simpleDeepClone(rootData.data)
   // 移除节点uid
   if (removeId) {
     delete tree.data.uid
@@ -208,6 +216,12 @@ export const copyNodeTree = (
       tree.children[index] = copyNodeTree({}, item, removeActiveState, removeId)
     })
   }
+  // data、children外的其他字段
+  Object.keys(rootData).forEach(key => {
+    if (!['data', 'children'].includes(key) && !/^_/.test(key)) {
+      tree[key] = rootData[key]
+    }
+  })
   return tree
 }
 
@@ -274,6 +288,21 @@ export const throttle = (fn, time = 300, ctx) => {
       fn.call(ctx, ...args)
       timer = null
     }, time)
+  }
+}
+
+// 防抖函数
+export const debounce = (fn, wait = 300, ctx) => {
+  let timeout = null
+
+  return (...args) => {
+    if (timeout) clearTimeout(timeout)
+    const callNow = !timeout
+    timeout = setTimeout(() => {
+      timeout = null
+      fn.apply(ctx, args)
+    }, wait)
+    if (callNow) fn.apply(ctx, args)
   }
 }
 
@@ -481,7 +510,7 @@ export const loadImage = imgFile => {
 
 // 移除字符串中的html实体
 export const removeHTMLEntities = str => {
-  ;[['&nbsp;', '&#160;']].forEach(item => {
+  [['&nbsp;', '&#160;']].forEach(item => {
     str = str.replaceAll(item[0], item[1])
   })
   return str
@@ -949,6 +978,12 @@ export const selectAllInput = el => {
 
 // 给指定的节点列表树数据添加附加数据，会修改原数据
 export const addDataToAppointNodes = (appointNodes, data = {}) => {
+  data = { ...data }
+  const alreadyIsRichText = data && data.richText
+  // 如果指定的数据就是富文本格式，那么不需要重新创建
+  if (alreadyIsRichText && data.resetRichText) {
+    delete data.resetRichText
+  }
   const walk = list => {
     list.forEach(node => {
       node.data = {
@@ -1027,7 +1062,7 @@ export const generateColorByContent = str => {
 
 //  html转义
 export const htmlEscape = str => {
-  ;[
+  [
     ['&', '&amp;'],
     ['<', '&lt;'],
     ['>', '&gt;']
@@ -1201,6 +1236,8 @@ export const handleInputPasteText = (e, text) => {
   if (!selection.rangeCount) return
   selection.deleteFromDocument()
   text = text || e.clipboardData.getData('text')
+  // 转义特殊字符
+  text = htmlEscape(text)
   // 去除格式
   text = getTextFromHtml(text)
   // 去除换行
@@ -1638,4 +1675,39 @@ export const mergeTheme = (dest, source) => {
       return sourceArray
     }
   })
+}
+
+// 获取节点实例的文本样式数据
+export const getNodeRichTextStyles = node => {
+  const res = {}
+  richTextSupportStyleList.forEach(prop => {
+    let value = node.style.merge(prop)
+    if (prop === 'fontSize') {
+      value = value + 'px'
+    }
+    res[prop] = value
+  })
+  return res
+}
+
+// 判断两个版本号的关系
+/*
+a > b 返回 >
+a < b 返回 <
+a = b 返回 =
+*/
+export const compareVersion = (a, b) => {
+  const aArr = String(a).split('.')
+  const bArr = String(b).split('.')
+  const max = Math.max(aArr.length, bArr.length)
+  for (let i = 0; i < max; i++) {
+    const ai = aArr[i] || 0
+    const bi = bArr[i] || 0
+    if (ai > bi) {
+      return '>'
+    } else if (ai < bi) {
+      return '<'
+    }
+  }
+  return '='
 }
