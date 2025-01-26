@@ -35,8 +35,6 @@ export const defaultOpt = {
   mouseScaleCenterUseMousePosition: true,
   // 最多显示几个标签
   maxTag: 5,
-  // 标签显示的位置，相对于节点文本，bottom（下方）、right（右侧）
-  tagPosition: CONSTANTS.TAG_POSITION.RIGHT,
   // 展开收缩按钮尺寸
   expandBtnSize: 20,
   // 节点里图片和文字的间距
@@ -292,6 +290,18 @@ export const defaultOpt = {
       // color: '',// 图标颜色，不手动设置则会使用节点文本的颜色
     }
   },
+  // 是否显示快捷创建子节点按钮
+  isShowCreateChildBtnIcon: true,
+  // 自定义快捷创建子节点按钮图标
+  quickCreateChildBtnIcon: {
+    icon: '', // svg字符串，如果不是确定要使用svg自带的样式，否则请去除其中的fill等样式属性
+    style: {
+      // 图标大小使用的是expandBtnSize选项
+      // color: '',// 图标颜色，不手动设置则会使用expandBtnStyle选项的color字段
+    }
+  },
+  // 自定义快捷创建子节点按钮的点击操作，
+  customQuickCreateChildBtnClick: null,
 
   // 【Select插件】
   // 多选节点时鼠标移动到边缘时的画布移动偏移量

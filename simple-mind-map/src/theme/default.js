@@ -93,7 +93,13 @@ export default {
     // 节点鼠标hover和激活时显示的矩形边框的颜色，主题里不设置，默认会取hoverRectColor实例化选项的值
     hoverRectColor: '',
     // 点鼠标hover和激活时显示的矩形边框的圆角大小
-    hoverRectRadius: 5
+    hoverRectRadius: 5,
+    // 文本对齐
+    align: 'left',
+    // 图片放置位置，相对于整个文本内容
+    imgPlacement: 'top', // left、right、bottom、top
+    // 标签放置位置
+    tagPlacement: 'right' // right（文字右侧）、bottom（文本内容下方）
     // 下列样式也支持给节点设置，用于覆盖最外层的设置
     // paddingX,
     // paddingY,
@@ -128,7 +134,10 @@ export default {
     endDir: [1, 0],
     lineMarkerDir: 'end',
     hoverRectColor: '',
-    hoverRectRadius: 5
+    hoverRectRadius: 5,
+    textAlign: 'left',
+    imgPlacement: 'top',
+    tagPlacement: 'right'
   },
   // 三级及以下节点样式
   node: {
@@ -153,7 +162,10 @@ export default {
     endDir: [1, 0],
     lineMarkerDir: 'end',
     hoverRectColor: '',
-    hoverRectRadius: 5
+    hoverRectRadius: 5,
+    textAlign: 'left',
+    imgPlacement: 'top',
+    tagPlacement: 'right'
   },
   // 概要节点样式
   generalization: {
@@ -177,7 +189,10 @@ export default {
     startDir: [0, 0],
     endDir: [1, 0],
     hoverRectColor: '',
-    hoverRectRadius: 5
+    hoverRectRadius: 5,
+    textAlign: 'left',
+    imgPlacement: 'top',
+    tagPlacement: 'right'
   }
 }
 
@@ -210,7 +225,8 @@ const nodeSizeIndependenceList = [
   'hoverRectRadius',
   'lineFlow',
   'lineFlowDuration',
-  'lineFlowForward'
+  'lineFlowForward',
+  'textAlign'
 ]
 export const checkIsNodeSizeIndependenceConfig = config => {
   let keys = Object.keys(config)

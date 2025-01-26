@@ -73,7 +73,6 @@ export default {
     watermarkTextOpacity: 'Text opacity',
     watermarkTextFontSize: 'Font size',
     belowNode: 'Display below nodes',
-    tagPosition: 'Node tag position',
     tagPositionRight: 'Text right',
     tagPositionBottom: 'Text bottom',
     alwaysShowExpandBtn: 'Always show expand btn',
@@ -82,7 +81,10 @@ export default {
     cancel: 'Cancel',
     changeRichTextTip: 'This operation will clear all historical modification records and modify the mind map data. Do you want to continue?',
     changeRichTextTip2: 'Do you want to switch to rich text mode?',
-    changeRichTextTip3: 'Do you want to switch to non rich text mode?'
+    changeRichTextTip3: 'Do you want to switch to non rich text mode?',
+    enableDragImport: 'Is it allowed to directly drag and drop files to the page for import',
+    imgTextMargin: 'Node image and text margin',
+    textContentMargin: 'Node contents margin'
   },
   color: {
     moreColor: 'More color'
@@ -189,7 +191,7 @@ export default {
   navigatorToolbar: {
     openMiniMap: 'Open mini map',
     closeMiniMap: 'Close mini map',
-    readonly: 'Change to eadonly',
+    readonly: 'Change to Readonly',
     edit: 'Change to edit',
     backToRoot: 'Back to root node',
     changeSourceCodeEdit: 'Switch to source code editing mode'
@@ -263,7 +265,14 @@ export default {
     openLineFlow: 'Open line flow',
     lineFlowDuration: 'Line flow duration',
     forward: 'Forward',
-    reverse: 'Reverse'
+    reverse: 'Reverse',
+    img: 'Image',
+    placement: 'Placement',
+    top: 'Top',
+    bottom: 'Bottom',
+    left: 'Left',
+    right: 'Right',
+    tag: 'Tag',
   },
   theme: {
     title: 'Theme',
@@ -331,7 +340,8 @@ export default {
     no: 'No',
     exportError: 'Export failed',
     dragTip: 'Release here to import the file',
-    deleteNodeImgTip: 'Are you sure to delete the node image?'
+    deleteNodeImgTip: 'Are you sure to delete the node image?',
+    autoOpenNodeRichTextTip: 'Detected imported rich text content, automatically enabled rich text mode'
   },
   mouseAction: {
     tip1:
@@ -368,7 +378,8 @@ export default {
     fontSize: 'Font size',
     color: 'Color',
     backgroundColor: 'Background color',
-    removeFormat: 'Clear Style'
+    removeFormat: 'Clear Style',
+    textAlign: 'Text align'
   },
   other: {
     loading: 'Loading, please wait...'

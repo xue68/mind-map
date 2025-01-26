@@ -43,6 +43,10 @@
     <NodeOuterFrame v-if="mindMap" :mindMap="mindMap"></NodeOuterFrame>
     <NodeTagStyle v-if="mindMap" :mindMap="mindMap"></NodeTagStyle>
     <Setting :data="mindMapData" :mindMap="mindMap"></Setting>
+    <NodeImgPlacementToolbar
+      v-if="mindMap"
+      :mindMap="mindMap"
+    ></NodeImgPlacementToolbar>
     <div
       class="dragMask"
       v-if="showDragMask"
@@ -127,6 +131,7 @@ import NodeOuterFrame from './NodeOuterFrame.vue'
 import NodeTagStyle from './NodeTagStyle.vue'
 import Setting from './Setting.vue'
 import AssociativeLineStyle from './AssociativeLineStyle.vue'
+import NodeImgPlacementToolbar from './NodeImgPlacementToolbar.vue'
 
 // 注册插件
 MindMap.usePlugin(MiniMap)
@@ -180,7 +185,8 @@ export default {
     NodeOuterFrame,
     NodeTagStyle,
     Setting,
-    AssociativeLineStyle
+    AssociativeLineStyle,
+    NodeImgPlacementToolbar
   },
   data() {
     return {
@@ -197,6 +203,7 @@ export default {
       isZenMode: state => state.localConfig.isZenMode,
       openNodeRichText: state => state.localConfig.openNodeRichText,
       isShowScrollbar: state => state.localConfig.isShowScrollbar,
+      enableDragImport: state => state.localConfig.enableDragImport,
       useLeftKeySelectionRightKeyDrag: state =>
         state.localConfig.useLeftKeySelectionRightKeyDrag,
       isUseHandDrawnLikeStyle: state =>
@@ -430,7 +437,7 @@ export default {
               })
           })
         }
-        // createNodePrefixContent: (node) => {
+        // createNodePrefixContent: node => {
         //   const el = document.createElement('div')
         //   el.style.width = '50px'
         //   el.style.height = '50px'
@@ -654,13 +661,24 @@ export default {
     // 动态设置思维导图数据
     setData(data) {
       this.handleShowLoading()
+      let rootNodeData = null
       if (data.root) {
         this.mindMap.setFullData(data)
+        rootNodeData = data.root
       } else {
         this.mindMap.setData(data)
+        rootNodeData = data
       }
       this.mindMap.view.reset()
       this.manualSave()
+      // 如果导入的是富文本内容，那么自动开启富文本模式
+      if (rootNodeData.data.richText && !this.openNodeRichText) {
+        this.$bus.$emit('toggleOpenNodeRichText', true)
+        this.$notify.info({
+          title: this.$t('edit.tip'),
+          message: this.$t('edit.autoOpenNodeRichTextTip')
+        })
+      }
     },
 
     // 重新渲染
@@ -878,13 +896,14 @@ export default {
 
     // 拖拽文件到页面导入
     onDragenter() {
-      if (this.isDragOutlineTreeNode) return
+      if (!this.enableDragImport || this.isDragOutlineTreeNode) return
       this.showDragMask = true
     },
     onDragleave() {
       this.showDragMask = false
     },
     onDrop(e) {
+      if (!this.enableDragImport) return
       this.showDragMask = false
       const dt = e.dataTransfer
       const file = dt.files && dt.files[0]

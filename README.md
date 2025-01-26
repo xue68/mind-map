@@ -318,6 +318,13 @@ const mindMap = new MindMap({
                 <sub style="font-size:14px"><b>御风</b></sub>
             </a>
         </td>
+        <td align="center" style="word-wrap: break-word; width: 75.0; height: 75.0">
+            <a href="#">
+                <img src="./web/src/assets/avatar/兔子快跑.jpg" width="50;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px"/>
+                <br />
+                <sub style="font-size:14px"><b>兔子快跑</b></sub>
+            </a>
+        </td>
     </tr>
 </table>
 
@@ -890,6 +897,36 @@ const mindMap = new MindMap({
                 <img src="./web/src/assets/avatar/冒号括号.png" width="50;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px"/>
                 <br />
                 <sub style="font-size:14px"><b>:)</b></sub>
+            </a>
+        </td>
+        <td align="center" style="word-wrap: break-word; width: 75.0; height: 75.0">
+            <a href="#">
+                <img src="./web/src/assets/avatar/可米阳光.jpg" width="50;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px"/>
+                <br />
+                <sub style="font-size:14px"><b>可米阳光</b></sub>
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" style="word-wrap: break-word; width: 75.0; height: 75.0">
+            <a href="#">
+                <img src="./web/src/assets/avatar/MrFujing.png" width="50;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px"/>
+                <br />
+                <sub style="font-size:14px"><b>MrFujing</b></sub>
+            </a>
+        </td>
+        <td align="center" style="word-wrap: break-word; width: 75.0; height: 75.0">
+            <a href="#">
+                <img src="./web/src/assets/avatar/Sword.png" width="50;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px"/>
+                <br />
+                <sub style="font-size:14px"><b>Sword</b></sub>
+            </a>
+        </td>
+        <td align="center" style="word-wrap: break-word; width: 75.0; height: 75.0">
+            <a href="#">
+                <img src="./web/src/assets/avatar/好好先生Ervin.jpg" width="50;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px"/>
+                <br />
+                <sub style="font-size:14px"><b>好好先生Ervin</b></sub>
             </a>
         </td>
     </tr>

@@ -10,7 +10,7 @@
         <div class="title noTop">{{ $t('style.text') }}</div>
         <div class="row">
           <div class="rowItem">
-            <span class="name">{{ $t('style.fontFamily') }}</span>
+            <!-- <span class="name">{{ $t('style.fontFamily') }}</span> -->
             <el-select
               size="mini"
               style="width: 100px"
@@ -29,10 +29,10 @@
             </el-select>
           </div>
           <div class="rowItem">
-            <span class="name">{{ $t('style.fontSize') }}</span>
+            <!-- <span class="name">{{ $t('style.fontSize') }}</span> -->
             <el-select
               size="mini"
-              style="width: 80px"
+              style="width: 60px"
               v-model="style.fontSize"
               placeholder=""
               @change="update('fontSize')"
@@ -43,6 +43,23 @@
                 :label="item"
                 :value="item"
                 :style="{ fontSize: item + 'px' }"
+              >
+              </el-option>
+            </el-select>
+          </div>
+          <div class="rowItem">
+            <el-select
+              size="mini"
+              style="width: 80px"
+              v-model="style.textAlign"
+              placeholder=""
+              @change="update('textAlign')"
+            >
+              <el-option
+                v-for="item in alignList"
+                :key="item.value"
+                :label="item.name"
+                :value="item.value"
               >
               </el-option>
             </el-select>
@@ -480,6 +497,50 @@
             ></el-slider>
           </div>
         </div>
+        <!-- 节点图片布局 -->
+        <div class="title noTop">{{ $t('style.img') }}</div>
+        <div class="row">
+          <div class="rowItem">
+            <span class="name">{{ $t('style.placement') }}</span>
+            <el-radio-group
+              v-model="style.imgPlacement"
+              size="mini"
+              @change="update('imgPlacement')"
+            >
+              <el-radio-button label="top">{{
+                $t('style.top')
+              }}</el-radio-button>
+              <el-radio-button label="bottom">{{
+                $t('style.bottom')
+              }}</el-radio-button>
+              <el-radio-button label="left">{{
+                $t('style.left')
+              }}</el-radio-button>
+              <el-radio-button label="right">{{
+                $t('style.right')
+              }}</el-radio-button>
+            </el-radio-group>
+          </div>
+        </div>
+        <!-- 节点标签布局 -->
+        <div class="title noTop">{{ $t('style.tag') }}</div>
+        <div class="row">
+          <div class="rowItem">
+            <span class="name">{{ $t('style.placement') }}</span>
+            <el-radio-group
+              v-model="style.tagPlacement"
+              size="mini"
+              @change="update('tagPlacement')"
+            >
+              <el-radio-button label="right">{{
+                $t('style.right')
+              }}</el-radio-button>
+              <el-radio-button label="bottom">{{
+                $t('style.bottom')
+              }}</el-radio-button>
+            </el-radio-group>
+          </div>
+        </div>
       </div>
     </div>
     <div class="tipBox" v-else>
@@ -500,7 +561,8 @@ import {
   borderRadiusList,
   shapeList,
   shapeListMap,
-  linearGradientDirList
+  linearGradientDirList,
+  alignList
 } from '@/config'
 import { mapState } from 'vuex'
 
@@ -546,7 +608,10 @@ export default {
         linearGradientDir: '',
         lineFlow: false,
         lineFlowForward: true,
-        lineFlowDuration: 1
+        lineFlowDuration: 1,
+        textAlign: '',
+        imgPlacement: '',
+        tagPlacement: ''
       }
     }
   },
@@ -572,6 +637,9 @@ export default {
       return (
         linearGradientDirList[this.$i18n.locale] || linearGradientDirList.zh
       )
+    },
+    alignList() {
+      return alignList[this.$i18n.locale] || alignList.zh
     }
   },
   watch: {

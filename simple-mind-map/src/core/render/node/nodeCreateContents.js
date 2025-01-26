@@ -52,8 +52,11 @@ function createImgNode() {
   if (this.getData('imageTitle')) {
     node.attr('title', this.getData('imageTitle'))
   }
+  node.on('click', e => {
+    this.mindMap.emit('node_img_click', this, node, e)
+  })
   node.on('dblclick', e => {
-    this.mindMap.emit('node_img_dblclick', this, e)
+    this.mindMap.emit('node_img_dblclick', this, e, node)
   })
   node.on('mouseenter', e => {
     this.mindMap.emit('node_img_mouseenter', this, node, e)
@@ -233,8 +236,9 @@ function createTextNode(specifyText) {
   if (this.getData('resetRichText')) {
     delete this.nodeData.data.resetRichText
   }
-  let g = new G()
-  let fontSize = this.getStyle('fontSize', false)
+  const g = new G()
+  const fontSize = this.getStyle('fontSize', false)
+  const textAlign = this.getStyle('textAlign', false)
   // 文本超长自动换行
   let textArr = []
   if (!isUndef(text)) {
@@ -274,6 +278,14 @@ function createTextNode(specifyText) {
     }
     const node = new Text().text(item)
     node.addClass('smm-text-node-wrap')
+    node.attr(
+      'text-anchor',
+      {
+        left: 'start',
+        center: 'middle',
+        right: 'end'
+      }[textAlign] || 'start'
+    )
     this.style.text(node)
     node.y(
       fontSize * noneRichTextNodeLineHeight * index +
