@@ -42,9 +42,7 @@ export default {
     notUseRainbowLines: '不使用彩虹線條',
     outerFramePadding: '外框內距',
     tagPositionRight: '文本右側',
-    tagPositionBottom: '文本下面',
-    alwaysShowExpandBtn: '是否壹直顯示展開收起按鈕',
-    enableAutoEnterTextEditWhenKeydown: '鍵盤輸入時自動進入文本編輯'
+    tagPositionBottom: '文本下面'
   },
   setting: {
     title: '設置',
@@ -64,6 +62,7 @@ export default {
     openRealtimeRenderOnNodeTextEdit: '開啟文本編輯實時渲染效果',
     isShowScrollbar: '顯示捲軸',
     isUseHandDrawnLikeStyle: '使用手繪風格',
+    isUseMomentum: '是否開啓拖動畫布的動量效果',
     watermark: '浮水印',
     showWatermark: '顯示浮水印',
     onlyExport: '僅在匯出時顯示',
@@ -78,12 +77,16 @@ export default {
     belowNode: '顯示在節點下方',
     confirm: '確定',
     cancel: '取消',
-    changeRichTextTip: '該操作會清空所有曆史修改記錄，並且修改思維導圖數據，是否繼續？',
+    changeRichTextTip:
+      '該操作會清空所有曆史修改記錄，並且修改思維導圖數據，是否繼續？',
     changeRichTextTip2: '是否切換爲富文本模式？',
     changeRichTextTip3: '是否切換爲非富文本模式？',
     enableDragImport: '是否允許直接拖拽文件到頁面進行導入',
     imgTextMargin: '節點圖片和文本間隔',
-    textContentMargin: '節點各種內容間隔'
+    textContentMargin: '節點各種內容間隔',
+    enableAutoEnterTextEditWhenKeydown: '鍵盤輸入時自動進入文本編輯',
+    enableInheritAncestorLineStyle: '節點連線樣式繼承祖先節點的樣式',
+    alwaysShowExpandBtn: '是否壹直顯示展開收起按鈕'
   },
   color: {
     moreColor: '更多顏色'
@@ -151,10 +154,7 @@ export default {
     svgFile: 'SVG 檔案',
     pdfFile: 'PDF 檔案',
     markdownFile: 'Markdown 檔案',
-    tips: '提示：.smm 和 .json 檔案可以匯入',
     isTransparent: '背景透明',
-    pngTips: '提示：在豐富文字模式下匯出圖片非常耗時，建議匯出為 SVG 格式',
-    svgTips: '提示：在豐富文字模式下匯出圖片非常耗時',
     transformingDomToImages: '正在轉換節點：',
     notifyTitle: '訊息',
     notifyMessage: '如果沒有觸發下載，請檢查是否被瀏覽器封鎖',
@@ -163,7 +163,9 @@ export default {
     useMultiPageExport: '多頁匯出',
     defaultFileName: '心智圖',
     addFooterText: '在底部新增文字',
-    addFooterTextPlaceholder: '例如：來自 simple-mind-map'
+    addFooterTextPlaceholder: '例如：來自 simple-mind-map',
+    desc: '說明',
+    options: '選項'
   },
   fullscreen: {
     fullscreenShow: '全螢幕檢視',
@@ -214,7 +216,9 @@ export default {
   },
   outline: {
     title: '大綱',
-    nodeDefaultText: '分支節點'
+    nodeDefaultText: '分支節點',
+    print: '打印',
+    fullscreen: '全屏'
   },
   scale: {
     zoomIn: '放大',
@@ -268,7 +272,7 @@ export default {
     bottom: '下',
     left: '左',
     right: '右',
-    tag: '標簽',
+    tag: '標簽'
   },
   theme: {
     title: '主題',

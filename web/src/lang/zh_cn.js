@@ -59,6 +59,7 @@ export default {
     openRealtimeRenderOnNodeTextEdit: '开启文本编辑实时渲染效果',
     isShowScrollbar: '是否显示滚动条',
     isUseHandDrawnLikeStyle: '是否开启手绘风格',
+    isUseMomentum: '是否开启拖动画布的动量效果',
     watermark: '水印',
     showWatermark: '是否显示水印',
     watermarkDefaultText: '水印文字',
@@ -75,9 +76,11 @@ export default {
     tagPositionBottom: '文本下面',
     alwaysShowExpandBtn: '是否一直显示展开收起按钮',
     enableAutoEnterTextEditWhenKeydown: '键盘输入时自动进入文本编辑',
+    enableInheritAncestorLineStyle: '节点连线样式继承祖先节点的样式',
     confirm: '确定',
     cancel: '取消',
-    changeRichTextTip: '该操作会清空所有历史修改记录，并且修改思维导图数据，是否继续？',
+    changeRichTextTip:
+      '该操作会清空所有历史修改记录，并且修改思维导图数据，是否继续？',
     changeRichTextTip2: '是否切换为富文本模式？',
     changeRichTextTip3: '是否切换为非富文本模式？',
     enableDragImport: '是否允许直接拖拽文件到页面进行导入',
@@ -150,10 +153,7 @@ export default {
     svgFile: 'svg文件',
     pdfFile: 'pdf文件',
     markdownFile: 'markdown文件',
-    tips: 'tips：.smm和.json文件可用于导入',
     isTransparent: '背景是否透明',
-    pngTips: 'tips：富文本模式导出图片非常耗时，建议导出为svg格式',
-    svgTips: 'tips：富文本模式导出图片非常耗时',
     transformingDomToImages: '正在转换节点：',
     notifyTitle: '消息',
     notifyMessage: '如果没有触发下载，请检查是否被浏览器拦截了',
@@ -162,7 +162,9 @@ export default {
     useMultiPageExport: '是否多页导出',
     defaultFileName: '思维导图',
     addFooterText: '底部添加文字',
-    addFooterTextPlaceholder: '比如：来自simple-mind-map'
+    addFooterTextPlaceholder: '比如：来自simple-mind-map',
+    desc: '说明',
+    options: '选项'
   },
   fullscreen: {
     fullscreenShow: '全屏查看',
@@ -213,7 +215,9 @@ export default {
   },
   outline: {
     title: '大纲',
-    nodeDefaultText: '分支节点'
+    nodeDefaultText: '分支节点',
+    print: '打印',
+    fullscreen: '全屏'
   },
   scale: {
     zoomIn: '放大',
@@ -268,7 +272,7 @@ export default {
     bottom: '下',
     left: '左',
     right: '右',
-    tag: '标签',
+    tag: '标签'
   },
   theme: {
     title: '主题',

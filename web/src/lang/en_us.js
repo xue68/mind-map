@@ -61,6 +61,7 @@ export default {
       'Enable real-time rendering effect for text editing',
     isShowScrollbar: 'Is show scrollbar',
     isUseHandDrawnLikeStyle: 'Is use hand drawn like style',
+    isUseMomentum: 'Is open drag momentum',
     watermark: 'Watermark',
     showWatermark: 'Is show watermark',
     onlyExport: 'Only export',
@@ -84,7 +85,8 @@ export default {
     changeRichTextTip3: 'Do you want to switch to non rich text mode?',
     enableDragImport: 'Is it allowed to directly drag and drop files to the page for import',
     imgTextMargin: 'Node image and text margin',
-    textContentMargin: 'Node contents margin'
+    textContentMargin: 'Node contents margin',
+    enableInheritAncestorLineStyle: 'Node connection style inherits the style of ancestor nodes',
   },
   color: {
     moreColor: 'More color'
@@ -152,11 +154,7 @@ export default {
     svgFile: 'svg file',
     pdfFile: 'pdf file',
     markdownFile: 'markdown file',
-    tips: 'tips: .smm and .json file can be import',
     isTransparent: 'Background is transparent',
-    pngTips:
-      'tips: Exporting pictures in rich text mode is time-consuming. It is recommended to export to svg format',
-    svgTips: 'tips: Exporting pictures in rich text mode is time-consuming',
     transformingDomToImages: 'Converting nodes: ',
     notifyTitle: 'Info',
     notifyMessage:
@@ -166,7 +164,9 @@ export default {
     useMultiPageExport: 'Export multi page',
     defaultFileName: 'Mind map',
     addFooterTextPlaceholder: 'For example: From simple-mind-map',
-    addFooterText: 'Add text at the footer'
+    addFooterText: 'Add text at the footer',
+    desc: 'Desc',
+    options: 'Options'
   },
   fullscreen: {
     fullscreenShow: 'Full screen show',
@@ -217,7 +217,9 @@ export default {
   },
   outline: {
     title: 'Outline',
-    nodeDefaultText: 'Branch node'
+    nodeDefaultText: 'Branch node',
+    print: 'Print',
+    fullscreen: 'Fullscreen'
   },
   scale: {
     zoomIn: 'Zoom in',
