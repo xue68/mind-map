@@ -1,5 +1,5 @@
 <template>
-  <Sidebar ref="sidebar" :title="'关联线样式'">
+  <Sidebar ref="sidebar" :title="$t('baseStyle.associativeLineStyle')">
     <div class="sidebarContent" :class="{ isDark: isDark }">
       <div class="title noTop">{{ $t('baseStyle.associativeLine') }}</div>
       <div class="row">
@@ -298,7 +298,9 @@ export default {
     },
 
     associativeLineDeactivate() {
-      this.setActiveSidebar('')
+      if (this.activeSidebar === 'associativeLineStyle') {
+        this.setActiveSidebar(null)
+      }
       this.activeLineNode = null
       this.activeLineToNode = null
       this.style = {

@@ -143,6 +143,9 @@ export const borderRadiusList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 // 线宽
 export const lineWidthList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
+// 行高
+export const lineHeightList = [1, 1.2, 1.5, 2, 2.5, 3]
+
 export const lineStyleMap = {
   straight: `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="60" height="26"><path d="M18,14L30,14L30,5L42,5" fill="none" stroke="#000" stroke-width="2"></path><path d="M18,14L30,14L30,23L42,23" fill="none" stroke="#000" stroke-width="2"></path></svg>`,
   curve: `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="60" height="26"><path d="M18,14L30,14A12,-9 0 0 1 42,5" fill="none" stroke="#000" stroke-width="2"></path><path d="M18,14L30,14A12,9 0 0 0 42,23" fill="none" stroke="#000" stroke-width="2"></path></svg>`,
@@ -740,5 +743,39 @@ export const alignList = [
   {
     name: '右对齐',
     value: 'right'
+  }
+]
+
+// 结构列表
+export const layoutGroupList = [
+  {
+    name: '逻辑结构图',
+    list: ['logicalStructure', 'logicalStructureLeft']
+  },
+  {
+    name: '思维导图',
+    list: ['mindMap']
+  },
+  {
+    name: '组织结构图',
+    list: ['organizationStructure']
+  },
+  {
+    name: '目录组织图',
+    list: ['catalogOrganization']
+  },
+  {
+    name: '时间轴',
+    list: [
+      'timeline',
+      'timeline2',
+      'verticalTimeline2',
+      'verticalTimeline3',
+      'verticalTimeline'
+    ]
+  },
+  {
+    name: '鱼骨图',
+    list: ['fishbone', 'fishbone2', 'rightFishbone', 'rightFishbone2']
   }
 ]

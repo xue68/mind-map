@@ -49,7 +49,7 @@ class Base {
 
   // 检查当前来源是否需要重新计算节点大小
   checkIsNeedResizeSources() {
-    return [CONSTANTS.CHANGE_THEME].includes(this.renderer.renderSource)
+    return this.renderer.checkHasRenderSource(CONSTANTS.CHANGE_THEME)
   }
 
   // 层级类型改变
@@ -61,7 +61,7 @@ class Base {
 
   // 检查是否是结构布局改变重新渲染展开收起按钮占位元素
   checkIsLayoutChangeRerenderExpandBtnPlaceholderRect(node) {
-    if (this.renderer.renderSource === CONSTANTS.CHANGE_LAYOUT) {
+    if (this.renderer.checkHasRenderSource(CONSTANTS.CHANGE_LAYOUT)) {
       node.needRerenderExpandBtnPlaceholderRect = true
     }
   }
@@ -74,8 +74,36 @@ class Base {
       lastData.isActive = curData.isActive
       lastData.expand = curData.expand
       lastData = JSON.stringify(lastData)
+    } else {
+      // 只在都有数据时才进行对比
+      return false
     }
     return lastData !== JSON.stringify(curData)
+  }
+
+  // 检查库前置或后置内容是否改变了
+  checkNodeFixChange(newNode, nodeInnerPrefixData, nodeInnerPostfixData) {
+    // 库前置内容是否改变了
+    let isNodeInnerPrefixChange = false
+    this.mindMap.nodeInnerPrefixList.forEach(item => {
+      if (item.updateNodeData) {
+        const isChange = item.updateNodeData(newNode, nodeInnerPrefixData)
+        if (isChange) {
+          isNodeInnerPrefixChange = isChange
+        }
+      }
+    })
+    // 库后置内容是否改变了
+    let isNodeInnerPostfixChange = false
+    this.mindMap.nodeInnerPostfixList.forEach(item => {
+      if (item.updateNodeData) {
+        const isChange = item.updateNodeData(newNode, nodeInnerPostfixData)
+        if (isChange) {
+          isNodeInnerPostfixChange = isChange
+        }
+      }
+    })
+    return isNodeInnerPrefixChange || isNodeInnerPostfixChange
   }
 
   //  创建节点实例
@@ -93,6 +121,20 @@ class Base {
           index
         })
         nodeInnerPrefixData[key] = value
+      }
+    })
+    // 库后置内容数据
+    const nodeInnerPostfixData = {}
+    this.mindMap.nodeInnerPostfixList.forEach(item => {
+      if (item.createNodeData) {
+        const [key, value] = item.createNodeData({
+          data,
+          parent,
+          ancestors,
+          layerIndex,
+          index
+        })
+        nodeInnerPostfixData[key] = value
       }
     })
     const uid = data.data.uid
@@ -114,16 +156,12 @@ class Base {
       }
       this.cacheNode(data._node.uid, newNode)
       this.checkIsLayoutChangeRerenderExpandBtnPlaceholderRect(newNode)
-      // 库前置内容是否改变了
-      let isNodeInnerPrefixChange = false
-      this.mindMap.nodeInnerPrefixList.forEach(item => {
-        if (item.updateNodeData) {
-          const isChange = item.updateNodeData(newNode, nodeInnerPrefixData)
-          if (isChange) {
-            isNodeInnerPrefixChange = isChange
-          }
-        }
-      })
+      // 库前置或后置内容是否改变了
+      const isNodeInnerFixChange = this.checkNodeFixChange(
+        newNode,
+        nodeInnerPrefixData,
+        nodeInnerPostfixData
+      )
       // 主题或主题配置改变了
       const isResizeSource = this.checkIsNeedResizeSources()
       // 节点数据改变了
@@ -138,7 +176,7 @@ class Base {
         isLayerTypeChange ||
         newNode.getData('resetRichText') ||
         newNode.getData('needUpdate') ||
-        isNodeInnerPrefixChange
+        isNodeInnerFixChange
       ) {
         newNode.getSize()
         newNode.needLayout = true
@@ -175,16 +213,12 @@ class Base {
       const isResizeSource = this.checkIsNeedResizeSources()
       // 点数据改变了
       const isNodeDataChange = this.checkIsNodeDataChange(lastData, data.data)
-      // 库前置内容是否改变了
-      let isNodeInnerPrefixChange = false
-      this.mindMap.nodeInnerPrefixList.forEach(item => {
-        if (item.updateNodeData) {
-          const isChange = item.updateNodeData(newNode, nodeInnerPrefixData)
-          if (isChange) {
-            isNodeInnerPrefixChange = isChange
-          }
-        }
-      })
+      // 库前置或后置内容是否改变了
+      const isNodeInnerFixChange = this.checkNodeFixChange(
+        newNode,
+        nodeInnerPrefixData,
+        nodeInnerPostfixData
+      )
       // 重新计算节点大小和布局
       if (
         isResizeSource ||
@@ -192,7 +226,7 @@ class Base {
         isLayerTypeChange ||
         newNode.getData('resetRichText') ||
         newNode.getData('needUpdate') ||
-        isNodeInnerPrefixChange
+        isNodeInnerFixChange
       ) {
         newNode.getSize()
         newNode.needLayout = true

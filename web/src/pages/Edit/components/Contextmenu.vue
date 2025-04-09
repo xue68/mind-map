@@ -134,6 +134,16 @@
       <div class="item" @click="exec('REMOVE_NOTE')" v-if="hasNote">
         <span class="name">{{ $t('contextmenu.removeNote') }}</span>
       </div>
+      <div class="item" @click="exec('LINK_NODE')">
+        <span class="name">{{
+          hasNodeLink
+            ? $t('contextmenu.modifyNodeLink')
+            : $t('contextmenu.linkToNode')
+        }}</span>
+      </div>
+      <div class="item" @click="exec('REMOVE_LINK_NODE')" v-if="hasNodeLink">
+        <span class="name">{{ $t('contextmenu.removeNodeLink') }}</span>
+      </div>
       <div class="item" @click="exec('REMOVE_CUSTOM_STYLES')">
         <span class="name">{{ $t('contextmenu.removeCustomStyles') }}</span>
       </div>
@@ -335,6 +345,9 @@ export default {
     },
     hasCheckbox() {
       return !!this.node.getData('checkbox')
+    },
+    hasNodeLink() {
+      return !!this.node.getData('nodeLink')
     }
   },
   created() {
@@ -477,6 +490,13 @@ export default {
           break
         case 'REMOVE_NOTE':
           this.node.setNote('')
+          break
+        case 'LINK_NODE':
+          this.$bus.$emit('show_link_node', this.node)
+          this.hide()
+          break
+        case 'REMOVE_LINK_NODE':
+          this.$bus.$emit('execCommand', 'SET_NODE_LINK', this.node, null)
           break
         case 'EXPORT_CUR_NODE_TO_PNG':
           this.mindMap.export(

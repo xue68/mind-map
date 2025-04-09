@@ -39,7 +39,9 @@ export default {
     edge: '边缘',
     rainbowLines: '彩虹线条',
     notUseRainbowLines: '不使用彩虹线条',
-    outerFramePadding: '外框内边距'
+    outerFramePadding: '外框内边距',
+    associativeLineStyle: '关联线样式',
+    builtInBackgroundImage: '内置背景图片'
   },
   setting: {
     title: '设置',
@@ -72,8 +74,6 @@ export default {
     watermarkTextOpacity: '文字透明度',
     watermarkTextFontSize: '文字字号',
     belowNode: '显示在节点下方',
-    tagPositionRight: '文本右侧',
-    tagPositionBottom: '文本下面',
     alwaysShowExpandBtn: '是否一直显示展开收起按钮',
     enableAutoEnterTextEditWhenKeydown: '键盘输入时自动进入文本编辑',
     enableInheritAncestorLineStyle: '节点连线样式继承祖先节点的样式',
@@ -135,7 +135,10 @@ export default {
     unExpandNodeChild: '收起所有下级节点',
     addToDo: '添加待办',
     removeToDo: '删除待办',
-    aiCreate: 'AI续写'
+    aiCreate: 'AI续写',
+    modifyNodeLink: '修改节点链接',
+    linkToNode: '链接到指定节点',
+    removeNodeLink: '删除节点链接'
   },
   count: {
     words: '字数',
@@ -166,7 +169,9 @@ export default {
     addFooterText: '底部添加文字',
     addFooterTextPlaceholder: '比如：来自simple-mind-map',
     desc: '说明',
-    options: '选项'
+    options: '选项',
+    isFitBg: '是否显示完整背景图片（使用了背景图片时生效）',
+    format: '格式'
   },
   fullscreen: {
     fullscreenShow: '全屏查看',
@@ -340,14 +345,16 @@ export default {
     exportError: '导出失败',
     dragTip: '在此释放以导入该文件',
     deleteNodeImgTip: '是否确认删除该节点图片？',
-    autoOpenNodeRichTextTip: '检测到导入了富文本内容，已自动开启富文本模式'
+    autoOpenNodeRichTextTip: '检测到导入了富文本内容，已自动开启富文本模式',
+    localStorageExceededTip:
+      '你创建的思维导图体积已经超过浏览器允许存储的上限，请立即导出，否则数据将丢失！建议下载客户端进行使用，客户端无大小限制。'
   },
   mouseAction: {
     tip1: '当前：左键拖动画布，右键框选节点',
     tip2: '当前：左键框选节点，右键拖动画布'
   },
   search: {
-    searchPlaceholder: '请输入查找内容',
+    searchPlaceholder: '输入查找内容后按回车键',
     replacePlaceholder: '请输入替换内容',
     replace: '替换',
     replaceAll: '全部替换',
@@ -406,11 +413,29 @@ export default {
     animate: '开启动画'
   },
   nodeOuterFrame: {
-    outerFrameSetting: '外框设置',
+    nodeOuterFrameStyle: '外框样式',
+    outerFrameSetting: '外框',
     deleteOuterFrame: '删除外框',
     boxStyle: '边框样式',
     boxColor: '边框颜色',
-    fillColor: '填充颜色'
+    fillColor: '填充颜色',
+    outerFrameText: '外框文字',
+    deleteOuterFrameText: '删除文字',
+    fontFamily: '字体',
+    color: '颜色',
+    fontSize: '字号',
+    radius: '圆角',
+    fontBold: '加粗',
+    italic: '斜体',
+    lineHeight: '行高',
+    textFillRadius: '背景圆角',
+    textFill: '背景填充',
+    textAlign: '显示位置',
+    left: '左',
+    center: '中',
+    right: '右',
+    paddingX: '水平内边距',
+    paddingY: '垂直内边距'
   },
   nodeTagStyle: {
     placeholder: '请输入标签内容',
@@ -466,7 +491,21 @@ export default {
       '】，需要以Markdown格式返回，并且只能使用Markdown的标题和无序列表两种语法，可以支持多层嵌套。只需返回内容即可。',
     aiCreatePartMsgPrefix: '我有一个主题为【',
     aiCreatePartMsgCenter: '】的思维导图，帮我续写其中一个内容为【',
-    aiCreatePartMsgPostfix:
-      '】的节点的下级内容，需要以Markdown格式返回，并且只能使用Markdown的标题和无序列表两种语法，可以支持多层嵌套。只需返回内容即可。'
+    aiCreatePartMsgPostfix: '】的节点的下级内容',
+    aiCreatePartMsgHelp:
+      '。需要以Markdown格式返回，并且只能使用Markdown的标题和无序列表两种语法，可以支持多层嵌套。只需返回内容即可。',
+    aiCreatePart: 'AI续写'
+  },
+  note: {
+    title: '备注'
+  },
+  nodeLink: {
+    linkToNode: '链接到指定节点',
+    addReturn: '是否添加反向链接',
+    tip1: '请选择要链接到的节点',
+    tip2: '不能链接自己',
+    tip3: '链接成功',
+    tip4: '删除成功',
+    tip5: '链接节点不存在，是否删除该链接？'
   }
 }

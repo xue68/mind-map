@@ -40,7 +40,9 @@ export default {
     edge: 'Edge',
     rainbowLines: 'Rainbow lines',
     notUseRainbowLines: 'Not use rainbow lines',
-    outerFramePadding: 'Outer frame padding'
+    outerFramePadding: 'Outer frame padding',
+    associativeLineStyle: 'Associative line style',
+    builtInBackgroundImage: 'Built in background image'
   },
   setting: {
     title: 'Setting',
@@ -74,8 +76,6 @@ export default {
     watermarkTextOpacity: 'Text opacity',
     watermarkTextFontSize: 'Font size',
     belowNode: 'Display below nodes',
-    tagPositionRight: 'Text right',
-    tagPositionBottom: 'Text bottom',
     alwaysShowExpandBtn: 'Always show expand btn',
     enableAutoEnterTextEditWhenKeydown: 'Auto enter text edit when keydown',
     confirm: 'Confirm',
@@ -139,7 +139,10 @@ export default {
     unExpandNodeChild: 'Un expand all sub nodes',
     addToDo: 'Add toDo',
     removeToDo: 'Remove toDo',
-    aiCreate: 'AI Continuation'
+    aiCreate: 'AI Continuation',
+    modifyNodeLink: 'Modify node link',
+    linkToNode: 'Link to node',
+    removeNodeLink: 'Remove node link'
   },
   count: {
     words: 'Words',
@@ -171,7 +174,10 @@ export default {
     addFooterTextPlaceholder: 'For example: From simple-mind-map',
     addFooterText: 'Add text at the footer',
     desc: 'Desc',
-    options: 'Options'
+    options: 'Options',
+    isFitBg:
+      'Whether to display the complete background image (effective when a background image is used)',
+    format: 'Format'
   },
   fullscreen: {
     fullscreenShow: 'Full screen show',
@@ -350,7 +356,9 @@ export default {
     dragTip: 'Release here to import the file',
     deleteNodeImgTip: 'Are you sure to delete the node image?',
     autoOpenNodeRichTextTip:
-      'Detected imported rich text content, automatically enabled rich text mode'
+      'Detected imported rich text content, automatically enabled rich text mode',
+    localStorageExceededTip:
+      'The volume of the mind map you created has exceeded the maximum storage limit allowed by the browser. Please export it immediately, otherwise the data will be lost! It is recommended to download the client for use, as there is no size limit for the client.'
   },
   mouseAction: {
     tip1:
@@ -359,7 +367,7 @@ export default {
       'Current: Left click to box select nodes, right click to drag the canvas'
   },
   search: {
-    searchPlaceholder: 'Please enter the search content',
+    searchPlaceholder: 'Enter the search content and press Enter',
     replacePlaceholder: 'Please enter replacement content',
     replace: 'Replace',
     replaceAll: 'Replace all',
@@ -418,11 +426,29 @@ export default {
     animate: 'Animate'
   },
   nodeOuterFrame: {
-    outerFrameSetting: 'Setting',
+    outerFrameSetting: 'Outer frame setting',
     deleteOuterFrame: 'Delete outer frame',
     boxStyle: 'Box style',
     boxColor: 'Box color',
-    fillColor: 'Fill color'
+    fillColor: 'Fill color',
+    nodeOuterFrameStyle: 'Outer frame style',
+    outerFrameText: 'Outer frame text',
+    deleteOuterFrameText: 'Delete outer frame text',
+    fontFamily: 'Font family',
+    color: 'Color',
+    fontSize: 'font size',
+    radius: 'Radius',
+    fontBold: 'Font bold',
+    italic: 'Italic',
+    lineHeight: 'Line height',
+    textFillRadius: 'Text fill radius',
+    textFill: 'Text fill color',
+    textAlign: 'Text align',
+    left: 'Left',
+    center: 'Center',
+    right: 'Right',
+    paddingX: 'Padding x',
+    paddingY: 'Padding y'
   },
   nodeTagStyle: {
     placeholder: 'Please enter the tag content',
@@ -485,6 +511,21 @@ export default {
     aiCreatePartMsgCenter:
       '】Can you help me continue writing one of the contents of the mind map【',
     aiCreatePartMsgPostfix:
-      '】The subordinate content of the node needs to be returned in Markdown format and can only use two syntax: Markdown title and unordered list. It can support multi-level nesting. Just return the content.'
+      '】The subordinate content of the node',
+    aiCreatePartMsgHelp:
+      '. Needs to be returned in Markdown format and can only use two syntax: Markdown title and unordered list. It can support multi-level nesting. Just return the content.',
+    aiCreatePart: 'AI Continuation'
+  },
+  note: {
+    title: 'Note'
+  },
+  nodeLink: {
+    linkToNode: 'Link to node',
+    addReturn: 'Weather to add a backlink',
+    tip1: 'Please select the node to link to',
+    tip2: 'Cannot link to oneself',
+    tip3: 'Link successful',
+    tip4: 'Delete successful',
+    tip5: 'The link node does not exist. Weather to delete the link?'
   }
 }

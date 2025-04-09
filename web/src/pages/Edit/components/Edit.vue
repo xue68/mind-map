@@ -15,8 +15,12 @@
     <Navigator v-if="mindMap" :mindMap="mindMap"></Navigator>
     <NavigatorToolbar :mindMap="mindMap" v-if="!isZenMode"></NavigatorToolbar>
     <OutlineSidebar :mindMap="mindMap"></OutlineSidebar>
-    <Style v-if="!isZenMode"></Style>
-    <BaseStyle :data="mindMapData" :mindMap="mindMap"></BaseStyle>
+    <Style v-if="mindMap && !isZenMode" :mindMap="mindMap"></Style>
+    <BaseStyle
+      :data="mindMapData"
+      :configData="mindMapConfig"
+      :mindMap="mindMap"
+    ></BaseStyle>
     <AssociativeLineStyle
       v-if="mindMap"
       :mindMap="mindMap"
@@ -42,13 +46,18 @@
     <SourceCodeEdit v-if="mindMap" :mindMap="mindMap"></SourceCodeEdit>
     <NodeOuterFrame v-if="mindMap" :mindMap="mindMap"></NodeOuterFrame>
     <NodeTagStyle v-if="mindMap" :mindMap="mindMap"></NodeTagStyle>
-    <Setting :data="mindMapData" :mindMap="mindMap"></Setting>
+    <Setting :configData="mindMapConfig" :mindMap="mindMap"></Setting>
     <NodeImgPlacementToolbar
       v-if="mindMap"
       :mindMap="mindMap"
     ></NodeImgPlacementToolbar>
+    <NodeNoteSidebar v-if="mindMap" :mindMap="mindMap"></NodeNoteSidebar>
     <AiCreate v-if="mindMap && enableAi" :mindMap="mindMap"></AiCreate>
     <AiChat v-if="enableAi"></AiChat>
+    <LinkNodeSelect
+      v-if="mindMap && supportNodeLink"
+      :mindMap="mindMap"
+    ></LinkNodeSelect>
     <div
       class="dragMask"
       v-if="showDragMask"
@@ -83,10 +92,11 @@ import RainbowLines from 'simple-mind-map/src/plugins/RainbowLines.js'
 import Demonstrate from 'simple-mind-map/src/plugins/Demonstrate.js'
 import OuterFrame from 'simple-mind-map/src/plugins/OuterFrame.js'
 import MindMapLayoutPro from 'simple-mind-map/src/plugins/MindMapLayoutPro.js'
+import NodeBase64ImageStorage from 'simple-mind-map/src/plugins/NodeBase64ImageStorage.js'
 import Themes from 'simple-mind-map-plugin-themes'
 // 协同编辑插件
 // import Cooperate from 'simple-mind-map/src/plugins/Cooperate.js'
-// 以下插件为付费插件，详情请查看开发文档。依次为：手绘风格插件、标记插件、编号插件、Freemind软件格式导入导出插件、Excel软件格式导入导出插件、待办插件、节点连线流动效果插件、动量效果插件
+// 以下插件为付费插件，详情请查看开发文档。依次为：手绘风格插件、标记插件、编号插件、Freemind软件格式导入导出插件、Excel软件格式导入导出插件、待办插件、节点连线流动效果插件、动量效果插件、向右鱼骨图插件、节点链接插件、扩展节点形状插件、扩展主题列表插件
 import HandDrawnLikeStyle from 'simple-mind-map-plugin-handdrawnlikestyle'
 import Notation from 'simple-mind-map-plugin-notation'
 import Numbers from 'simple-mind-map-plugin-numbers'
@@ -95,7 +105,13 @@ import Excel from 'simple-mind-map-plugin-excel'
 import Checkbox from 'simple-mind-map-plugin-checkbox'
 import LineFlow from 'simple-mind-map-plugin-lineflow'
 import Momentum from 'simple-mind-map-plugin-momentum'
-// npm link simple-mind-map-plugin-excel simple-mind-map-plugin-freemind simple-mind-map-plugin-numbers simple-mind-map-plugin-notation simple-mind-map-plugin-handdrawnlikestyle simple-mind-map-plugin-checkbox simple-mind-map simple-mind-map-plugin-themes simple-mind-map-plugin-lineflow simple-mind-map-plugin-momentum
+import RightFishbone from 'simple-mind-map-plugin-right-fishbone'
+import NodeLink from 'simple-mind-map-plugin-node-link'
+import MoreShapes from 'simple-mind-map-plugin-more-shapes'
+import MoreThemes from 'simple-mind-map-plugin-more-themes'
+// npm link simple-mind-map simple-mind-map-plugin-excel simple-mind-map-plugin-freemind simple-mind-map-plugin-numbers simple-mind-map-plugin-notation simple-mind-map-plugin-handdrawnlikestyle simple-mind-map-plugin-checkbox simple-mind-map-plugin-lineflow simple-mind-map-plugin-momentum simple-mind-map-plugin-right-fishbone simple-mind-map-plugin-node-link
+// simple-mind-map-plugin-themes
+// simple-mind-map-plugin-more-themes simple-mind-map-plugin-more-shapes
 import OutlineSidebar from './OutlineSidebar.vue'
 import Style from './Style.vue'
 import BaseStyle from './BaseStyle.vue'
@@ -107,11 +123,11 @@ import ShortcutKey from './ShortcutKey.vue'
 import Contextmenu from './Contextmenu.vue'
 import RichTextToolbar from './RichTextToolbar.vue'
 import NodeNoteContentShow from './NodeNoteContentShow.vue'
-import { getData, storeData, storeConfig } from '@/api'
+import { getData, getConfig, storeData } from '@/api'
 import Navigator from './Navigator.vue'
 import NodeImgPreview from './NodeImgPreview.vue'
 import SidebarTrigger from './SidebarTrigger.vue'
-import { mapMutations, mapState } from 'vuex'
+import { mapState } from 'vuex'
 import icon from '@/config/icon'
 import CustomNodeContent from './CustomNodeContent.vue'
 import Color from './Color.vue'
@@ -135,8 +151,10 @@ import NodeTagStyle from './NodeTagStyle.vue'
 import Setting from './Setting.vue'
 import AssociativeLineStyle from './AssociativeLineStyle.vue'
 import NodeImgPlacementToolbar from './NodeImgPlacementToolbar.vue'
+import NodeNoteSidebar from './NodeNoteSidebar.vue'
 import AiCreate from './AiCreate.vue'
 import AiChat from './AiChat.vue'
+import LinkNodeSelect from './LinkNodeSelect.vue'
 
 // 注册插件
 MindMap.usePlugin(MiniMap)
@@ -157,10 +175,15 @@ MindMap.usePlugin(MiniMap)
   .usePlugin(Demonstrate)
   .usePlugin(OuterFrame)
   .usePlugin(MindMapLayoutPro)
+  .usePlugin(NodeBase64ImageStorage)
 // .usePlugin(Cooperate) // 协同插件
 
 // 注册主题
 Themes.init(MindMap)
+// 扩展主题列表
+if (typeof MoreThemes !== 'undefined') {
+  MoreThemes.init(MindMap)
+}
 
 export default {
   components: {
@@ -191,14 +214,17 @@ export default {
     Setting,
     AssociativeLineStyle,
     NodeImgPlacementToolbar,
+    NodeNoteSidebar,
     AiCreate,
-    AiChat
+    AiChat,
+    LinkNodeSelect
   },
   data() {
     return {
       enableShowLoading: true,
       mindMap: null,
       mindMapData: null,
+      mindMapConfig: {},
       prevImg: '',
       storeConfigTimer: null,
       showDragMask: false
@@ -217,7 +243,8 @@ export default {
       isUseMomentum: state => state.localConfig.isUseMomentum,
       extraTextOnExport: state => state.extraTextOnExport,
       isDragOutlineTreeNode: state => state.isDragOutlineTreeNode,
-      enableAi: state => state.localConfig.enableAi
+      enableAi: state => state.localConfig.enableAi,
+      supportNodeLink: state => state.supportNodeLink
     })
   },
   watch: {
@@ -265,6 +292,7 @@ export default {
     this.$bus.$on('startPainter', this.handleStartPainter)
     this.$bus.$on('node_tree_render_end', this.handleHideLoading)
     this.$bus.$on('showLoading', this.handleShowLoading)
+    this.$bus.$on('localStorageExceeded', this.onLocalStorageExceeded)
     window.addEventListener('resize', this.handleResize)
   },
   beforeDestroy() {
@@ -278,10 +306,20 @@ export default {
     this.$bus.$off('startPainter', this.handleStartPainter)
     this.$bus.$off('node_tree_render_end', this.handleHideLoading)
     this.$bus.$off('showLoading', this.handleShowLoading)
+    this.$bus.$off('localStorageExceeded', this.onLocalStorageExceeded)
     window.removeEventListener('resize', this.handleResize)
     this.mindMap.destroy()
   },
   methods: {
+    onLocalStorageExceeded() {
+      this.$notify({
+        type: 'warning',
+        title: this.$t('edit.tip'),
+        message: this.$t('edit.localStorageExceededTip'),
+        duration: 0
+      })
+    },
+
     handleStartTextEdit() {
       this.mindMap.renderer.startTextEdit()
     },
@@ -318,19 +356,19 @@ export default {
 
     // 获取思维导图数据，实际应该调接口获取
     getData() {
-      let storeData = getData()
-      this.mindMapData = storeData
+      this.mindMapData = getData()
+      this.mindMapConfig = getConfig() || {}
     },
 
     // 存储数据当数据有变时
     bindSaveEvent() {
       this.$bus.$on('data_change', data => {
-        storeData(data)
+        storeData({ root: data })
       })
       this.$bus.$on('view_data_change', data => {
         clearTimeout(this.storeConfigTimer)
         this.storeConfigTimer = setTimeout(() => {
-          storeConfig({
+          storeData({
             view: data
           })
         }, 300)
@@ -339,14 +377,14 @@ export default {
 
     // 手动保存
     manualSave() {
-      let data = this.mindMap.getData(true)
-      storeConfig(data)
+      storeData(this.mindMap.getData(true))
     },
 
     // 初始化
     init() {
       let hasFileURL = this.hasFileURL()
-      let { root, layout, theme, view, config } = this.mindMapData
+      let { root, layout, theme, view } = this.mindMapData
+      const config = this.mindMapConfig
       // 如果url中存在要打开的文件，那么思维导图数据、主题、布局都使用默认的
       if (hasFileURL) {
         root = {
@@ -614,7 +652,7 @@ export default {
       // 当正在编辑本地文件时通过该方法获取最新数据
       Vue.prototype.getCurrentData = () => {
         const fullData = this.mindMap.getData(true)
-        return { ...fullData, config: this.mindMapData.config }
+        return { ...fullData }
       }
       // 协同测试
       this.cooperateTest()
@@ -673,6 +711,37 @@ export default {
       if (typeof LineFlow !== 'undefined') {
         this.mindMap.addPlugin(LineFlow)
         this.$store.commit('setSupportLineFlow', true)
+      }
+      if (typeof RightFishbone !== 'undefined') {
+        this.mindMap.addPlugin(RightFishbone)
+        this.$store.commit('setSupportRightFishbone', true)
+      }
+      if (typeof NodeLink !== 'undefined') {
+        this.mindMap.addPlugin(NodeLink)
+        this.$store.commit('setSupportNodeLink', true)
+      }
+      if (typeof MoreShapes !== 'undefined') {
+        this.mindMap.addPlugin(MoreShapes)
+        this.$store.commit('setSupportMoreShapes', true)
+      }
+      // 扩展侧边主题列表
+      if (typeof MoreThemes !== 'undefined') {
+        const extendThemeGroupList = [
+          {
+            name: '带背景', // 主题组名称
+            // 主题列表
+            list: [...MoreThemes.lightList, ...MoreThemes.darkList].map(
+              item => {
+                return {
+                  ...item,
+                  img: MoreThemes.themeImgMap[item.value]
+                }
+              }
+            )
+          }
+        ]
+        this.$store.commit('setExtendThemeGroupList', extendThemeGroupList)
+        this.$store.commit('setBgList', MoreThemes.bgList)
       }
     },
 

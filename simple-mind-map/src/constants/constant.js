@@ -2,7 +2,6 @@
 export const CONSTANTS = {
   CHANGE_THEME: 'changeTheme',
   CHANGE_LAYOUT: 'changeLayout',
-  SET_DATA: 'setData',
   MODE: {
     READONLY: 'readonly',
     EDIT: 'edit'
@@ -16,7 +15,12 @@ export const CONSTANTS = {
     TIMELINE: 'timeline',
     TIMELINE2: 'timeline2',
     FISHBONE: 'fishbone',
-    VERTICAL_TIMELINE: 'verticalTimeline'
+    FISHBONE2: 'fishbone2',
+    RIGHT_FISHBONE: 'rightFishbone',
+    RIGHT_FISHBONE2: 'rightFishbone2',
+    VERTICAL_TIMELINE: 'verticalTimeline',
+    VERTICAL_TIMELINE2: 'verticalTimeline2',
+    VERTICAL_TIMELINE3: 'verticalTimeline3'
   },
   DIR: {
     UP: 'up',
@@ -80,11 +84,6 @@ export const CONSTANTS = {
     TOP: 'top',
     RIGHT: 'right',
     BOTTOM: 'bottom'
-  },
-  EDIT_NODE_CLASS: {
-    SMM_NODE_EDIT_WRAP: 'smm-node-edit-wrap',
-    RICH_TEXT_EDIT_WRAP: 'ql-editor',
-    ASSOCIATIVE_LINE_TEXT_EDIT_WRAP: 'associative-line-text-edit-warp'
   }
 }
 
@@ -131,8 +130,28 @@ export const layoutList = [
     value: CONSTANTS.LAYOUT.VERTICAL_TIMELINE
   },
   {
+    name: '竖向时间轴2',
+    value: CONSTANTS.LAYOUT.VERTICAL_TIMELINE2
+  },
+  {
+    name: '竖向时间轴3',
+    value: CONSTANTS.LAYOUT.VERTICAL_TIMELINE3
+  },
+  {
     name: '鱼骨图',
     value: CONSTANTS.LAYOUT.FISHBONE
+  },
+  {
+    name: '鱼骨图2',
+    value: CONSTANTS.LAYOUT.FISHBONE2
+  },
+  {
+    name: '向右鱼骨图',
+    value: CONSTANTS.LAYOUT.RIGHT_FISHBONE
+  },
+  {
+    name: '向右鱼骨图2',
+    value: CONSTANTS.LAYOUT.RIGHT_FISHBONE2
   }
 ]
 export const layoutValueList = [
@@ -144,7 +163,12 @@ export const layoutValueList = [
   CONSTANTS.LAYOUT.TIMELINE,
   CONSTANTS.LAYOUT.TIMELINE2,
   CONSTANTS.LAYOUT.VERTICAL_TIMELINE,
-  CONSTANTS.LAYOUT.FISHBONE
+  CONSTANTS.LAYOUT.VERTICAL_TIMELINE2,
+  CONSTANTS.LAYOUT.VERTICAL_TIMELINE3,
+  CONSTANTS.LAYOUT.FISHBONE,
+  CONSTANTS.LAYOUT.FISHBONE2,
+  CONSTANTS.LAYOUT.RIGHT_FISHBONE,
+  CONSTANTS.LAYOUT.RIGHT_FISHBONE2
 ]
 
 // 节点数据中非样式的字段
@@ -162,7 +186,7 @@ export const nodeDataNoStylePropList = [
   'isActive',
   'generalization',
   'richText',
-  'resetRichText',// 重新创建富文本内容，去掉原有样式
+  'resetRichText', // 重新创建富文本内容，去掉原有样式
   'uid',
   'activeStyle',
   'associativeLineTargets',
@@ -180,7 +204,9 @@ export const nodeDataNoStylePropList = [
   'customTextWidth',
   'checkbox',
   'dir',
-  'needUpdate'// 重新创建节点内容
+  'needUpdate', // 重新创建节点内容
+  'imgMap',
+  'nodeLink'
 ]
 
 // 错误类型

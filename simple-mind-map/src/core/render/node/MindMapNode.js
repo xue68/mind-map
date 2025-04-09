@@ -234,6 +234,9 @@ class MindMapNode {
       'postfix',
       ...this.mindMap.nodeInnerPrefixList.map(item => {
         return item.name
+      }),
+      ...this.mindMap.nodeInnerPostfixList.map(item => {
+        return item.name
       })
     ]
     const createTypes = {}
@@ -291,6 +294,11 @@ class MindMapNode {
         addXmlns(this._postfixData.el)
       }
     }
+    this.mindMap.nodeInnerPostfixList.forEach(item => {
+      if (createTypes[item.name]) {
+        this[`_${item.name}Data`] = item.createContent(this)
+      }
+    })
     if (
       addCustomContentToNode &&
       typeof addCustomContentToNode.create === 'function'
@@ -475,8 +483,12 @@ class MindMapNode {
       return
     }
     this.updateNodeActiveClass()
-    const { alwaysShowExpandBtn, notShowExpandBtn, isShowCreateChildBtnIcon } =
-      this.mindMap.opt
+    const {
+      alwaysShowExpandBtn,
+      notShowExpandBtn,
+      isShowCreateChildBtnIcon,
+      readonly
+    } = this.mindMap.opt
     const childrenLength = this.getChildrenLength()
     // 不显示展开收起按钮则不需要处理
     if (!notShowExpandBtn) {
@@ -522,7 +534,7 @@ class MindMapNode {
     // 更新节点位置
     const t = this.group.transform()
     // 保存一份当前节点数据快照
-    this.nodeDataSnapshot = JSON.stringify(this.getData())
+    this.nodeDataSnapshot = readonly ? '' : JSON.stringify(this.getData())
     // 节点位置变化才更新，因为即使值没有变化属性设置操作也是耗时的
     if (this.left !== t.translateX || this.top !== t.translateY) {
       this.group.translate(this.left - t.translateX, this.top - t.translateY)
@@ -806,11 +818,10 @@ class MindMapNode {
     }
     let childrenLen = this.getChildrenLength()
     // 切换为鱼骨结构时，清空根节点和二级节点的连线
-    if (
-      this.mindMap.opt.layout === CONSTANTS.LAYOUT.FISHBONE &&
-      (this.isRoot || this.layerIndex === 1)
-    ) {
-      childrenLen = 0
+    if (this.mindMap.renderer.layout.nodeIsRemoveAllLines) {
+      if (this.mindMap.renderer.layout.nodeIsRemoveAllLines(this)) {
+        childrenLen = 0
+      }
     }
     if (childrenLen > this._lines.length) {
       // 创建缺少的线

@@ -41,8 +41,8 @@ export default {
     rainbowLines: '彩虹線條',
     notUseRainbowLines: '不使用彩虹線條',
     outerFramePadding: '外框內距',
-    tagPositionRight: '文本右側',
-    tagPositionBottom: '文本下面'
+    associativeLineStyle: '關聯線樣式',
+    builtInBackgroundImage: '內置背景圖片'
   },
   setting: {
     title: '設置',
@@ -136,7 +136,10 @@ export default {
     unExpandNodeChild: '收起所有下級節點',
     addToDo: '添加待辦',
     removeToDo: '刪除待辦',
-    aiCreate: 'AI續寫'
+    aiCreate: 'AI續寫',
+    modifyNodeLink: '修改節點鏈接',
+    linkToNode: '鏈接到指定節點',
+    removeNodeLink: '刪除節點鏈接'
   },
   count: {
     words: '字數',
@@ -167,7 +170,9 @@ export default {
     addFooterText: '在底部新增文字',
     addFooterTextPlaceholder: '例如：來自 simple-mind-map',
     desc: '說明',
-    options: '選項'
+    options: '選項',
+    isFitBg: '是否顯示完整背景圖片（使用了背景圖片時生效）',
+    format: '格式'
   },
   fullscreen: {
     fullscreenShow: '全螢幕檢視',
@@ -274,7 +279,8 @@ export default {
     bottom: '下',
     left: '左',
     right: '右',
-    tag: '標簽'
+    tag: '標簽',
+    direction: '方向'
   },
   theme: {
     title: '主題',
@@ -339,14 +345,16 @@ export default {
     no: '否',
     exportError: '匯出失敗',
     dragTip: '在此釋放以匯入檔案',
-    autoOpenNodeRichTextTip: '檢測到導入了富文本內容，已自動開啓富文本模式'
+    autoOpenNodeRichTextTip: '檢測到導入了富文本內容，已自動開啓富文本模式',
+    localStorageExceededTip:
+      '你創建的思維導圖體積已經超過浏覽器允許存儲的上限，請立即導出，否則數據將丟失！建議下載客戶端進行使用，客戶端無大小限制。'
   },
   mouseAction: {
     tip1: '目前：左鍵拖曳畫布，右鍵框選節點',
     tip2: '目前：左鍵框選節點，右鍵拖曳畫布'
   },
   search: {
-    searchPlaceholder: '請輸入搜尋內容',
+    searchPlaceholder: '輸入查找內容後按回車鍵',
     replacePlaceholder: '請輸入取代內容',
     replace: '取代',
     replaceAll: '全部取代',
@@ -405,11 +413,29 @@ export default {
     animate: '動畫'
   },
   nodeOuterFrame: {
-    outerFrameSetting: '外框設定',
+    outerFrameSetting: '外框',
     deleteOuterFrame: '刪除外框',
     boxStyle: '邊框樣式',
     boxColor: '邊框顏色',
-    fillColor: '填充顏色'
+    fillColor: '填充顏色',
+    nodeOuterFrameStyle: '外框樣式',
+    outerFrameText: '外框文字',
+    deleteOuterFrameText: '刪除文字',
+    fontFamily: '字型',
+    color: '顏色',
+    fontSize: '字型大小',
+    radius: '圓角',
+    fontBold: '加粗',
+    italic: '斜體',
+    lineHeight: '行高',
+    textFillRadius: '背景圓角',
+    textFill: '背景填充',
+    textAlign: '顯示位置',
+    left: '左',
+    center: '中',
+    right: '右',
+    paddingX: '水平內邊距',
+    paddingY: '垂直內邊距'
   },
   nodeTagStyle: {
     placeholder: '請輸入標籤內容',
@@ -466,6 +492,21 @@ export default {
     aiCreatePartMsgPrefix: '我有一個主題爲【',
     aiCreatePartMsgCenter: '】的思維導圖，幫我續寫其中一個內容爲【',
     aiCreatePartMsgPostfix:
-      '】的節點的下級內容，需要以Markdown格式返回，並且只能使用Markdown的標題和無序列表兩種語法，可以支持多層嵌套。只需返回內容即可。'
+      '】的節點的下級內容',
+      aiCreatePartMsgHelp:
+      '。需要以Markdown格式返回，並且只能使用Markdown的標題和無序列表兩種語法，可以支持多層嵌套。只需返回內容即可。',
+    aiCreatePart: 'AI續寫'
+  },
+  note: {
+    title: '備註'
+  },
+  nodeLink: {
+    linkToNode: '鏈接到指定節點',
+    addReturn: '是否添加反向鏈接',
+    tip1: '請選擇要鏈接到的節點',
+    tip2: '不能鏈接自己',
+    tip3: '鏈接成功',
+    tip4: '刪除成功',
+    tip5: '鏈接節點不存在，是否刪除該鏈接？'
   }
 }

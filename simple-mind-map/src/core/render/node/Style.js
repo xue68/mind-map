@@ -8,6 +8,18 @@ const backgroundStyleProps = [
   'backgroundSize'
 ]
 
+export const shapeStyleProps = [
+  'gradientStyle',
+  'startColor',
+  'endColor',
+  'startDir',
+  'endDir',
+  'fillColor',
+  'borderColor',
+  'borderWidth',
+  'borderDasharray'
+]
+
 //  样式类
 class Style {
   //   设置背景样式
@@ -112,6 +124,8 @@ class Style {
 
   // 更新当前节点生效的样式数据
   addToEffectiveStyles(styles) {
+    // effectiveStyles目前只提供给格式刷插件使用，所以如果没有注册该插件，那么不需要保存该数据
+    if (!this.ctx.mindMap.painter) return
     this.ctx.effectiveStyles = {
       ...this.ctx.effectiveStyles,
       ...styles
@@ -126,17 +140,10 @@ class Style {
 
   // 形状
   shape(node) {
-    const styles = {
-      gradientStyle: this.merge('gradientStyle'),
-      startColor: this.merge('startColor'),
-      endColor: this.merge('endColor'),
-      startDir: this.merge('startDir'),
-      endDir: this.merge('endDir'),
-      fillColor: this.merge('fillColor'),
-      borderColor: this.merge('borderColor'),
-      borderWidth: this.merge('borderWidth'),
-      borderDasharray: this.merge('borderDasharray')
-    }
+    const styles = {}
+    shapeStyleProps.forEach(key => {
+      styles[key] = this.merge(key)
+    })
     if (styles.gradientStyle) {
       if (!this._gradient) {
         this._gradient = this.ctx.nodeDraw.gradient('linear')

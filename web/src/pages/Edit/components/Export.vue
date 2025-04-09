@@ -61,6 +61,13 @@
                 class="valueItem"
                 v-show="['svg', 'png', 'pdf'].includes(exportType)"
               >
+                <div class="valueSubItem" v-if="['png'].includes(exportType)">
+                  <span class="name">{{ $t('export.format') }}</span>
+                  <el-radio-group v-model="imageFormat">
+                    <el-radio label="png">PNG</el-radio>
+                    <el-radio label="jpg">JPG</el-radio>
+                  </el-radio-group>
+                </div>
                 <div class="valueSubItem">
                   <span class="name">{{ $t('export.paddingX') }}</span>
                   <el-input
@@ -100,6 +107,11 @@
                     >{{ $t('export.isTransparent') }}</el-checkbox
                   >
                 </div>
+                <div class="valueSubItem">
+                  <el-checkbox v-show="showFitBgOption" v-model="isFitBg">{{
+                    $t('export.isFitBg')
+                  }}</el-checkbox>
+                </div>
               </div>
             </div>
           </div>
@@ -136,7 +148,9 @@ export default {
       paddingX: 10,
       paddingY: 10,
       extraText: '',
-      isMobile: isMobile()
+      isMobile: isMobile(),
+      isFitBg: true,
+      imageFormat: 'png'
     }
   },
   computed: {
@@ -166,6 +180,10 @@ export default {
         return item.type === this.exportType
       })
       return cur
+    },
+
+    showFitBgOption() {
+      return ['png', 'pdf'].includes(this.exportType) && !this.isTransparent
     }
   },
   created() {
@@ -217,10 +235,12 @@ export default {
       } else if (this.exportType === 'png') {
         this.$bus.$emit(
           'export',
-          this.exportType,
+          this.imageFormat,
           true,
           this.fileName,
-          this.isTransparent
+          this.isTransparent,
+          null,
+          this.isFitBg
         )
       } else if (this.exportType === 'pdf') {
         this.$bus.$emit(
@@ -228,7 +248,8 @@ export default {
           this.exportType,
           true,
           this.fileName,
-          this.isTransparent
+          this.isTransparent,
+          this.isFitBg
         )
       } else if (this.exportType === 'mm') {
         this.$bus.$emit('export', this.exportType, true, this.fileName, {
@@ -512,6 +533,7 @@ export default {
             .valueItem {
               .valueSubItem {
                 margin-bottom: 12px;
+                display: flex;
 
                 &:last-of-type {
                   margin-right: 0;
@@ -519,6 +541,7 @@ export default {
 
                 .name {
                   margin-right: 12px;
+                  width: 100px;
                 }
               }
             }
