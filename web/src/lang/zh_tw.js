@@ -173,7 +173,8 @@ export default {
     desc: '說明',
     options: '選項',
     isFitBg: '是否顯示完整背景圖片（使用了背景圖片時生效）',
-    format: '格式'
+    format: '格式',
+    confirm: '匯出'
   },
   fullscreen: {
     fullscreenShow: '全螢幕檢視',
@@ -204,7 +205,13 @@ export default {
     readonly: '切換為唯讀模式',
     edit: '切換為編輯模式',
     backToRoot: '回到根節點',
-    changeSourceCodeEdit: '切換為原始碼編輯模式'
+    changeSourceCodeEdit: '切換為原始碼編輯模式',
+    shortcutKeys: '快捷鍵',
+    ai: 'AI對話',
+    downloadClient: '下載客戶端',
+    site: '官方網站',
+    current: '當前：',
+    downloadDesc: '可從如下地址下載：'
   },
   nodeHyperlink: {
     title: '超連結',
@@ -351,7 +358,12 @@ export default {
     dragTip: '在此釋放以匯入檔案',
     autoOpenNodeRichTextTip: '檢測到導入了富文本內容，已自動開啓富文本模式',
     localStorageExceededTip:
-      '你創建的思維導圖體積已經超過浏覽器允許存儲的上限，請立即導出，否則數據將丟失！建議下載客戶端進行使用，客戶端無大小限制。'
+      '你創建的思維導圖體積已經超過浏覽器允許存儲的上限，請立即導出，否則數據將丟失！建議下載客戶端進行使用，客戶端無大小限制。',
+    withBg: '帶背景',
+    tryTipTitle: '功能試用提示',
+    tryTipDesc: '該功能在網頁版中為試用功能，請下載用戶端使用：',
+    downBaidu: '去百度網盤下載',
+    downGithub: '去Github下載'
   },
   mouseAction: {
     tip1: '目前：左鍵拖曳畫布，右鍵框選節點',
@@ -495,9 +507,8 @@ export default {
       '】，需要以Markdown格式返回，並且只能使用Markdown的標題和無序列表兩種語法，可以支持多層嵌套。只需返回內容即可。',
     aiCreatePartMsgPrefix: '我有一個主題爲【',
     aiCreatePartMsgCenter: '】的思維導圖，幫我續寫其中一個內容爲【',
-    aiCreatePartMsgPostfix:
-      '】的節點的下級內容',
-      aiCreatePartMsgHelp:
+    aiCreatePartMsgPostfix: '】的節點的下級內容',
+    aiCreatePartMsgHelp:
       '。需要以Markdown格式返回，並且只能使用Markdown的標題和無序列表兩種語法，可以支持多層嵌套。只需返回內容即可。',
     aiCreatePart: 'AI續寫'
   },

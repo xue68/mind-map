@@ -178,7 +178,8 @@ export default {
     options: 'Options',
     isFitBg:
       'Whether to display the complete background image (effective when a background image is used)',
-    format: 'Format'
+    format: 'Format',
+    confirm: 'Export'
   },
   fullscreen: {
     fullscreenShow: 'Full screen show',
@@ -209,7 +210,13 @@ export default {
     readonly: 'Change to Readonly',
     edit: 'Change to edit',
     backToRoot: 'Back to root node',
-    changeSourceCodeEdit: 'Switch to source code editing mode'
+    changeSourceCodeEdit: 'Switch to source code editing mode',
+    shortcutKeys: 'Shortcut keys',
+    ai: 'AI dialogue',
+    downloadClient: 'Download client',
+    site: 'Official website',
+    current: 'Current:',
+    downloadDesc: 'You can download it from the following address:'
   },
   nodeHyperlink: {
     title: 'Link',
@@ -362,7 +369,13 @@ export default {
     autoOpenNodeRichTextTip:
       'Detected imported rich text content, automatically enabled rich text mode',
     localStorageExceededTip:
-      'The volume of the mind map you created has exceeded the maximum storage limit allowed by the browser. Please export it immediately, otherwise the data will be lost! It is recommended to download the client for use, as there is no size limit for the client.'
+      'The volume of the mind map you created has exceeded the maximum storage limit allowed by the browser. Please export it immediately, otherwise the data will be lost! It is recommended to download the client for use, as there is no size limit for the client.',
+    withBg: 'With background image',
+    tryTipTitle: 'Function trial prompt',
+    tryTipDesc:
+      'This feature is a trial feature in the web version. Please download the client to use it:',
+    downBaidu: 'Go to Baidu Netdisk to download',
+    downGithub: 'Download from Github'
   },
   mouseAction: {
     tip1:
@@ -514,8 +527,7 @@ export default {
     aiCreatePartMsgPrefix: 'I have a theme for【',
     aiCreatePartMsgCenter:
       '】Can you help me continue writing one of the contents of the mind map【',
-    aiCreatePartMsgPostfix:
-      '】The subordinate content of the node',
+    aiCreatePartMsgPostfix: '】The subordinate content of the node',
     aiCreatePartMsgHelp:
       '. Needs to be returned in Markdown format and can only use two syntax: Markdown title and unordered list. It can support multi-level nesting. Just return the content.',
     aiCreatePart: 'AI Continuation'
